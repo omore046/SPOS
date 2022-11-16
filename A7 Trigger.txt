@@ -1,0 +1,29 @@
+SQL> set serverout on SQL> select*from Library; 
+ROLL_NO ISSUE_DAT BOOK_NAME 
+- - 11 13-OCT-21 Wings of Fire 21 23-SEP-21 India 2020 
+34 05-MAR-21 Ignited Minds 
+40 10-JUL-21 The Discovery of India 
+SQL> edit trigger_for_book SQL> edit Audit_book SQL> edit library_audit 
+SQL> @library_audit Enter value for roll: 21 old 8: roll :=&roll; new 8: roll :=21; 
+Enter value for bname: 'Deception Point' old 9: bname :=&bname; 
+new 9: bname :='Deception Point'; Name of the new book:Deception Point Name of the old book:India 2020 
+PL/SQL procedure successfully completed. SQL> select*from Library_Audit_table; 
+ROLL_NO ISSUE_DAT OLD_BOOK NEW_BOOK 
+- - 21 20-OCT-21 India 2020 Deception Point 
+SQL> select*from Library; 
+ROLL_NO ISSUE_DAT BOOK_NAME 
+- - 11 13-OCT-21 Wings of Fire 21 23-SEP-21 Deception Point 34 05-MAR-21 Ignited Minds 
+40 10-JUL-21 The Da Vinci Code SQL> 
+
+Trigger 
+delimiter $
+Declare 
+roll number; new_date date; bname varchar(25); 
+new_book varchar(25); old_book varchar(25); begin 
+roll :=&roll; bname :=&bname; 
+select book_name into old_book from Library where Roll_no =roll; update Library set book_name=bname where Roll_no =roll; 
+select book_name into new_book from Library where Roll_no =roll; select sysdate into new_date from dual; 
+insert into Library_Audit_table values(roll, new_date, old_book, new_book); 
+end; 
+/
+$

@@ -1,0 +1,28 @@
+SQL> create table new_class(roll int,name varchar(20)); Table created. 
+SQL> create table old_class(roll int,name varchar(20)); Table created. 
+SQL> edit c_class 
+declare cursor c_class is select * from old_class; 
+cursor c_chk(str_name varchar) is select roll from new_class where name=str_name; str_roll new_class.roll%type; 
+str_name new_class.name%type; v varchar(10); 
+begin open c_class; 
+loop fetch c_class into str_roll,str_name; exit when c_class%notfound; 
+open c_chk(str_name); 
+fetch c_chk into v; if c_chk%found then dbms_output.put_line('Name '||str_name||' is exist'); 
+else dbms_output.put_line('Name '||str_name||' does not exist. Inserting in new class table'); insert into new_class values(str_roll,str_name); 
+end if; 
+close c_chk; 
+end loop; close c_class; end; 
+/ 
+SQL> select * from old_class; 
+ROLL NAME 
+- 101 AAA 
+102 BBB 
+103 CCC 
+104 DDD 
+
+SQL> select * from new_class; ROLL NAME 
+101 AAA 102 BBB 
+SQL> @c_class Name AAA is exist Name BBB is exist 
+Name CCC does not exist. 
+Inserting in new class table Name DDD does not exist. 
+Inserting in new class table PL/SQL procedure successfully completed.

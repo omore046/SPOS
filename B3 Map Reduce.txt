@@ -1,0 +1,180 @@
+> use ass3
+switched to db ass3
+> db.ass3.insert({roll:1, name:'navin', subject:oop, marks:78})
+uncaught exception: ReferenceError: oop is not defined :
+@(shell):1:39
+>  db.ass3.insert({roll:1, name:'navin', subject:'oop', marks:78})
+WriteResult({ "nInserted" : 1 })
+> db.ass3.insert({roll:2, name:'anusha', subject:'dsa', marks:75})
+WriteResult({ "nInserted" : 1 })
+> db.ass3.insert({roll:3, name:'ravi', subject:'toc', marks:69})
+WriteResult({ "nInserted" : 1 })
+> db.ass3.insert({roll:4, name:'veena', subject:'C++', marks:70})
+WriteResult({ "nInserted" : 1 })
+> db.ass3.insert({roll:5, name:'pravin', subject:'CN', marks:80})
+WriteResult({ "nInserted" : 1 })
+> db.ass3.insert({roll:6, name:'geeta', subject:'CN', marks:90})
+WriteResult({ "nInserted" : 1 })
+> db.ass3.find()
+{ "_id" : ObjectId("6352686908ee6c5c1c27c8af"), "roll" : 1, "name" : "navin", "subject" : "oop", "marks" : 78 }
+{ "_id" : ObjectId("635268be08ee6c5c1c27c8b0"), "roll" : 2, "name" : "anusha", "subject" : "dsa", "marks" : 75 }
+{ "_id" : ObjectId("635268e908ee6c5c1c27c8b1"), "roll" : 3, "name" : "ravi", "subject" : "toc", "marks" : 69 }
+{ "_id" : ObjectId("6352690b08ee6c5c1c27c8b2"), "roll" : 4, "name" : "veena", "subject" : "C++", "marks" : 70 }
+{ "_id" : ObjectId("6352692a08ee6c5c1c27c8b3"), "roll" : 5, "name" : "pravin", "subject" : "CN", "marks" : 80 }
+{ "_id" : ObjectId("6352694508ee6c5c1c27c8b4"), "roll" : 6, "name" : "geeta", "subject" : "CN", "marks" : 90 }
+> var mapFunc = function(){emit(this.subject,this.marks)};
+> var mapFunc = function(){emit(this.subject,this.marks);}
+> var redFunc = function(key, values){
+... var marks=0;
+... for(var i=0;i<values.length;i++)
+... {
+... var marks += this.marks;
+... }
+... return marks;
+... }
+uncaught exception: SyntaxError: unexpected token: '+=' :
+@(shell):5:10
+>  var redFunc = function(key, values){
+... var marks=0;
+... for(var i=0;i<values.length;i++)
+... marks += values[i];
+... return marks;
+... }
+> db.ass3.mapReduce(mapFunc,redFunc,{out:"total"})
+{ "result" : "total", "ok" : 1 }
+> db.total.found()
+uncaught exception: TypeError: db.total.found is not a function :
+@(shell):1:1
+> db.total.find()
+{ "_id" : "dsa", "value" : 75 }
+{ "_id" : "CN", "value" : 170 }
+{ "_id" : "toc", "value" : 69 }
+{ "_id" : "C++", "value" : 70 }
+{ "_id" : "oop", "value" : 78 }
+> var redFunc = function(key, values){ return Array.sum(values)}
+>  db.ass3.mapReduce(mapFunc,redFunc,{out:"total1"})
+{ "result" : "total1", "ok" : 1 }
+> db.total1.find()
+{ "_id" : "dsa", "value" : 75 }
+{ "_id" : "CN", "value" : 170 }
+{ "_id" : "toc", "value" : 69 }
+{ "_id" : "C++", "value" : 70 }
+{ "_id" : "oop", "value" : 78 }
+>
+
+
+> use ass3
+switched to db ass3
+> db.ass3.insert({roll:1, name:'navin', subject:'oop', marks:78})
+WriteResult({ "nInserted" : 1 })
+> db.ass3.insert({roll:2, name:'anusha', subject:'dsa', marks:75})
+WriteResult({ "nInserted" : 1 })
+> db.ass3.insert({roll:3, name:'ravi', subject:'toc', marks:69})
+WriteResult({ "nInserted" : 1 })
+> db.ass3.insert({roll:4, name:'veena', subject:'C++', marks:70})
+WriteResult({ "nInserted" : 1 })
+> db.ass3.insert({roll:5, name:'pravin', subject:'CN', marks:80})
+WriteResult({ "nInserted" : 1 })
+> db.ass3.insert({roll:6, name:'geeta', subject:'CN', marks:90})
+WriteResult({ "nInserted" : 1 })
+> db.ass3.find()
+{ "_id" : ObjectId("6352686908ee6c5c1c27c8af"), "roll" : 1, "name" : "navin",
+"subject" : "oop", "marks" : 78 }
+{ "_id" : ObjectId("635268be08ee6c5c1c27c8b0"), "roll" : 2, "name" : "anusha",
+"subject" : "dsa", "marks" : 75 }
+{ "_id" : ObjectId("635268e908ee6c5c1c27c8b1"), "roll" : 3, "name" : "ravi",
+"subject" : "toc", "marks" : 69 }
+{ "_id" : ObjectId("6352690b08ee6c5c1c27c8b2"), "roll" : 4, "name" : "veena",
+"subject" : "C++", "marks" : 70 }
+{ "_id" : ObjectId("6352692a08ee6c5c1c27c8b3"), "roll" : 5, "name" : "pravin",
+"subject" : "CN", "marks" : 80 }
+{ "_id" : ObjectId("6352694508ee6c5c1c27c8b4"), "roll" : 6, "name" : "geeta",
+"subject" : "CN", "marks" : 90 }
+{ "_id" : ObjectId("63526cc9d26f5de13d8059fd"), "roll" : 1, "name" : "navin",
+"subject" : "oop", "marks" : 78 }
+{ "_id" : ObjectId("63526cd3d26f5de13d8059fe"), "roll" : 2, "name" : "anusha",
+"subject" : "dsa", "marks" : 75 }
+{ "_id" : ObjectId("63526ceed26f5de13d8059ff"), "roll" : 3, "name" : "ravi",
+"subject" : "toc", "marks" : 69 }
+{ "_id" : ObjectId("63526cfbd26f5de13d805a00"), "roll" : 4, "name" : "veena",
+"subject" : "C++", "marks" : 70 }
+{ "_id" : ObjectId("63526d17d26f5de13d805a01"), "roll" : 5, "name" : "pravin",
+"subject" : "CN", "marks" : 80 }
+{ "_id" : ObjectId("63526d2bd26f5de13d805a02"), "roll" : 6, "name" : "geeta",
+"subject" : "CN", "marks" : 90 }
+
+> var mapFunc = function(){emit(this.subject,this.marks)};
+> var mapFunc = function(){emit(this.subject,this.marks);}
+> var redFunc = function(key, values){ return Array.sum(values)}
+> db.ass3.mapReduce(mapFunc,redFunc,{out:"total1"})
+{ "result" : "total1", "ok" : 1 }
+> db.total1.find()
+{ "_id" : "toc", "value" : 138 }
+{ "_id" : "C++", "value" : 140 }
+{ "_id" : "oop", "value" : 156 }
+{ "_id" : "dsa", "value" : 150 }
+{ "_id" : "CN", "value" : 340 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+> use ass3
+switched to db ass3
+> db.ass3.insert({roll:1, name:'navin', subject:'oop', marks:78})
+WriteResult({ "nInserted" : 1 })
+> db.ass3.insert({roll:2, name:'anusha', subject:'dsa', marks:75})
+WriteResult({ "nInserted" : 1 })
+> db.ass3.insert({roll:3, name:'ravi', subject:'toc', marks:69})
+WriteResult({ "nInserted" : 1 })
+> db.ass3.insert({roll:4, name:'veena', subject:'C++', marks:70})
+WriteResult({ "nInserted" : 1 })
+> db.ass3.insert({roll:5, name:'pravin', subject:'CN', marks:80})
+WriteResult({ "nInserted" : 1 })
+> db.ass3.insert({roll:6, name:'geeta', subject:'CN', marks:90})
+WriteResult({ "nInserted" : 1 })
+> db.ass3.find()
+{ "_id" : ObjectId("6352686908ee6c5c1c27c8af"), "roll" : 1, "name" : "navin", "subject" : "oop", "marks" : 78 }
+{ "_id" : ObjectId("635268be08ee6c5c1c27c8b0"), "roll" : 2, "name" : "anusha", "subject" : "dsa", "marks" : 75 }
+{ "_id" : ObjectId("635268e908ee6c5c1c27c8b1"), "roll" : 3, "name" : "ravi", "subject" : "toc", "marks" : 69 }
+{ "_id" : ObjectId("6352690b08ee6c5c1c27c8b2"), "roll" : 4, "name" : "veena", "subject" : "C++", "marks" : 70 }
+{ "_id" : ObjectId("6352692a08ee6c5c1c27c8b3"), "roll" : 5, "name" : "pravin", "subject" : "CN", "marks" : 80 }
+{ "_id" : ObjectId("6352694508ee6c5c1c27c8b4"), "roll" : 6, "name" : "geeta", "subject" : "CN", "marks" : 90 }
+{ "_id" : ObjectId("63526cc9d26f5de13d8059fd"), "roll" : 1, "name" : "navin", "subject" : "oop", "marks" : 78 }
+{ "_id" : ObjectId("63526cd3d26f5de13d8059fe"), "roll" : 2, "name" : "anusha", "subject" : "dsa", "marks" : 75 }
+{ "_id" : ObjectId("63526ceed26f5de13d8059ff"), "roll" : 3, "name" : "ravi", "subject" : "toc", "marks" : 69 }
+{ "_id" : ObjectId("63526cfbd26f5de13d805a00"), "roll" : 4, "name" : "veena", "subject" : "C++", "marks" : 70 }
+{ "_id" : ObjectId("63526d17d26f5de13d805a01"), "roll" : 5, "name" : "pravin", "subject" : "CN", "marks" : 80 }
+{ "_id" : ObjectId("63526d2bd26f5de13d805a02"), "roll" : 6, "name" : "geeta", "subject" : "CN", "marks" : 90 }
+> var mapFunc = function(){emit(this.subject,this.marks)};
+> var mapFunc = function(){emit(this.subject,this.marks);}
+> var redFunc = function(key, values){ return Array.sum(values)}
+> db.ass3.mapReduce(mapFunc,redFunc,{out:"total1"})
+{ "result" : "total1", "ok" : 1 }
+> db.total1.find()
+{ "_id" : "toc", "value" : 138 }
+{ "_id" : "C++", "value" : 140 }
+{ "_id" : "oop", "value" : 156 }
+{ "_id" : "dsa", "value" : 150 }
+{ "_id" : "CN", "value" : 340 }

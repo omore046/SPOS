@@ -1,0 +1,164 @@
+// Java program to illustrate
+// Connecting to the Database import java.sql.*;
+
+public class connect
+{
+public static void main(String args[])
+{
+try
+{
+Class.forName("oracle.jdbc.driver.OracleDriver");
+
+// Establishing Connection
+Connection con = DriverManager.getConnection( "jdbc:oracle:thin:@localhost:1521:orcl", "login1", "pwd1");
+
+if (con != null) System.out.println("Connected");
+else
+System.out.println("Not Connected");
+
+con.close();
+}
+catch(Exception e)
+{
+System.out.println(e);
+}
+}
+}
+
+
+Output :
+Successfully Registered
+
+// Java program to illustrate
+// inserting to the Database import java.sql.*;
+
+public class insert1
+{
+public static void main(String args[])
+{
+String id = "id1"; String pwd = "pwd1";
+String fullname = "xyz";
+String email = "xyz@gmail.com";
+
+try
+{
+Class.forName("oracle.jdbc.driver.OracleDriver"); Connection con = DriverManager.getConnection(" jdbc:oracle:thin:@localhost:1521:orcl", "login1", "pwd1"); Statement stmt = con.createStatement();
+
+// Inserting data in database
+String q1 = "insert into userid values('" +id+ "', '" +pwd+ "', '" +fullname+ "', '" +email+ "')";
+int x = stmt.executeUpdate(q1); if (x > 0)
+  System.out.println("Successfully Inserted"); else
+System.out.println("Insert Failed");
+
+con.close();
+}
+catch(Exception e)
+{
+System.out.println(e);
+}
+}
+}
+
+Output :
+Successfully Registered
+
+// Java program to illustrate
+// updating the Database import java.sql.*;
+
+public class update1
+{
+public static void main(String args[])
+{
+String id = "id1"; String pwd = "pwd1";
+String newPwd = "newpwd"; try
+{
+Class.forName("oracle.jdbc.driver.OracleDriver"); Connection con = DriverManager.getConnection(" jdbc:oracle:thin:@localhost:1521:orcl", "login1", "pwd1"); Statement stmt = con.createStatement();
+
+// Updating database
+String q1 = "UPDATE userid set pwd = '" + newPwd + "' WHERE id = '" +id+ "' AND pwd = '" + pwd + "'";
+int x = stmt.executeUpdate(q1);
+
+if (x > 0)
+  System.out.println("Password Successfully Updated"); else
+System.out.println("ERROR OCCURRED :(");
+
+con.close();
+}
+catch(Exception e)
+{
+System.out.println(e);
+}
+}
+}
+
+Output :
+Password Successfully Updated
+
+// Java program to illustrate
+// deleting from Database import java.sql.*;
+
+public class delete
+{
+public static void main(String args[])
+{
+String id = "id2"; String pwd = "pwd2"; try
+{
+Class.forName("oracle.jdbc.driver.OracleDriver"); Connection con = DriverManager.getConnection(" jdbc:oracle:thin:@localhost:1521:orcl", "login1", "pwd1"); Statement stmt = con.createStatement();
+
+// Deleting from database
+String q1 = "DELETE from userid WHERE id = '" + id + "' AND pwd = '" + pwd + "'";
+int x = stmt.executeUpdate(q1); if (x > 0)
+System.out.println("One User Successfully Deleted");
+else
+System.out.println("ERROR OCCURRED :(");
+
+con.close();
+}
+catch(Exception e)
+{
+System.out.println(e);
+}
+}
+}
+
+
+
+
+
+Output :
+One User Successfully Deleted
+
+// Java program to illustrate
+// selecting from Database import java.sql.*;
+
+public class select
+{
+public static void main(String args[])
+{
+String id = "id1"; String pwd = "pwd1"; try
+{
+Class.forName("oracle.jdbc.driver.OracleDriver"); Connection con = DriverManager.getConnection("
+    jdbc:oracle:thin:@localhost:1521:orcl", "login1", "pwd1"); Statement stmt = con.createStatement();
+
+// SELECT query
+String q1 = "select * from userid WHERE id = '" + id + "' AND pwd = '" + pwd + "'";
+ResultSet rs = stmt.executeQuery(q1); if (rs.next())
+{
+System.out.println("User-Id : " + rs.getString(1)); System.out.println("Full Name :" + rs.getString(3)); System.out.println("E-mail :" + rs.getString(4));
+}
+else
+{
+System.out.println("No such user id is already registered");
+}
+con.close();
+}
+catch(Exception e)
+{
+System.out.println(e);
+}
+}
+}
+
+Output :
+User-Id : id1 Full Name : xyz
+E-mail :xyz@gmail.com

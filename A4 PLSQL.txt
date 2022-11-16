@@ -1,0 +1,88 @@
+Table Creation: 
+create table borrower_detail(Rollin int, Name varchar(15), DateofIssue date, NameofBook varchar(20), Status varchar(10)); 
+Table created. 
+SQL> create table fine_detail(Roll_no int,FineDate date,Amt int); Table created. 
+
+PL/SQL Code: 
+delimiter $
+SQL> edit fine declare 
+roll_no number; 
+name_of_book varchar(10);
+diff_date number; 
+p_date date; 
+i_date date; 
+fine_amt real; 
+begin roll_no:=&roll_no; 
+name_of_book:='&name_of_book'; 
+select dateofissue into i_date from Borrower_detail where rollin=roll_no; 
+select sysdate - i_date into diff_date from dual; dbms_output.put_line(diff_date); 
+if (diff_date>15 AND diff_date<30) then fine_amt:=diff_date*5; 
+else fine_amt:=diff_date*50; end if; 
+dbms_output.put_line('fine amt='||fine_amt); 
+update Borrower_detail set status='r' where rollin=roll_no; if (fine_amt>0) then 
+insert into Fine_detail values(roll_no,i_date,fine_amt); 
+end if; 
+end;
+$ 
+/ 
+
+Data Insertion: 
+SQL> insert into borrower_detail values(1001,'Vasuki','03-NOV-20','CPP','I'); 1 row created. 
+SQL> insert into borrower_detail values(1002,'Ria','03-OCT-20','SEPM','I'); 1 row created. 
+SQL> insert into borrower_detail values(1003,'Madhuri','01-DEC-20','DBMS','I'); 1 row created. 
+
+
+
+
+
+
+
+Output : 
+SQL> @fine 
+Enter value for roll_no: 1001 old 9: roll_no:=&roll_no; 
+new 9: roll_no:=1001; 
+Enter value for name_of_book: CPP 
+old 10: name_of_book:='&name_of_book'; new 10: name_of_book:='CPP'; PL/SQL procedure successfully completed. 
+SQL> select * from fine_detail; 
+ROLL_NO FINEDATE AMT 
+- - 1001 03-NOV-20 148 
+
+SQL> @fine 
+Enter value for roll_no: 1002 old 9: roll_no:=&roll_no; 
+new 9: roll_no:=1002; 
+Enter value for name_of_book: SEPM 
+old 10: name_of_book:='&name_of_book'; new 10: name_of_book:='SEPM'; PL/SQL procedure successfully completed. 
+SQL> select * from fine_detail; 
+ROLL_NO FINEDATE AMT 
+- - 
+1001 03-NOV-20 148 1002 03-OCT-20 3025 
+
+SQL> select * from borrower_detail; 
+ROLLIN NAME DATEOFISS NAMEOFBOOK STATUS 
+1001 Vasuki 03-NOV-20 CPP r 
+1002 Ria 03-OCT-20 SEPM r 
+1003 Madhuri 01-DEC-20 DBMS l
+
+PL/SQL Code: 
+declare 
+r1 number:=&r1; 
+a1 number(14,2); 
+value_out_of_bounds_exception exception; begin 
+if r1>=5 and r1<=9 then a1 := 3.14*r1*r1; 
+insert into areass values(r1,a1); 
+else 
+raise value_out_of_bounds_exception; 
+end if; 
+exception 
+when value_out_of_bounds_exception then dbms_output.put_line('radius must be between 5 and 9.'); 
+end; 
+/ 
+Output: 
+SQL> set serverout on 
+SQL> @ circle assignment Enter value for r1: 0 
+old 2: r1 number:=&r1; new 2: r1 number:=0; 
+radius must be between 5 and 9. 
+PL/SQL procedure successfully completed. 
+SQL> @ circle assignment Enter value for r1: 6 
+old 2: r1 number:=&r1; new 2: r1 number:=6; 
+PL/SQL procedure successfully completed.

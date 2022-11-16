@@ -1,0 +1,32 @@
+CREATE TABLE stud_marks( name VARCHAR(20), 
+total_marks NUMBER); 
+INSERT INTO stud_marks VALUES('raj',89); 
+INSERT INTO stud_marks VALUES('ram',94); 
+INSERT INTO stud_marks VALUES('ramesh',95); 
+CREATE TABLE results( roll_no NUMBER, name VARCHAR(20), 
+class VARCHAR(20) 
+); 
+INSERT INTO stud_marks 
+VALUES(1,'raj','TE'); 
+INSERT INTO stud_marks VALUES(2,'ram','TE'); 
+INSERT INTO stud_marks VALUES(3,'ramesh','TE'); 
+
+PL/SQL Code: 
+delimiter $
+create or replace procedure proc_grade is marks number; 
+s_name stud_marks.name%type := &name; 
+s_marks stud_marks.total_marks%type; 
+begin 
+SELECT total_marks INTO s_marks FROM stud_marks WHERE name := s_name; 
+if((s_marks<1500) and (s_marks>=990))then dbms_output.put_line('You have got distinction'); elsif((s_marks>=989) and (s_marks<=900))then dbms_output.put_line('You have got firstclass'); elsif((s_marks>=899) and (s_marks<=825))then dbms_output.put_line('You have got secondclass'); else 
+dbms_output.put_line('Indeterminate'); end if; 
+end; 
+/ 
+$
+
+Output: 
+SQL> exec proc_grade(94,90,96); 
+You have got Distinction with percent 93.33333333333333333333333333333333333333 
+PL/SQL procedure successfully completed. SQL> exec proc_grade (74,70,76); 
+You have got First class with percent 73.33333333333333333333333333333333333333 
+PL/SQL procedure successfully completed.

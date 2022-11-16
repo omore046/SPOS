@@ -1,0 +1,260 @@
+
+
+mysql> CREATE DATABASE dat_b;
+Query OK, 1 row affected (1.28 sec)
+mysql> use dat_b;
+Database changed
+mysql> create table EMPLOYEE(emp_id int(10),ename varchar(20),addr varchar(50),job_stat varchar(50),basic_sal int(20),constraint EMPLOYEE_pk primary key(emp_id));
+Query OK, 0 rows affected, 2 warnings (1.53 sec)
+
+mysql> INSERT INTO EMPLOYEE VALUES (0001, 'Clark','pune', 'professor',50000);
+Query OK, 1 row affected (0.99 sec)
+
+mysql> INSERT INTO EMPLOYEE VALUES (0002, 'Dave','mumbai','Clerk   ',2500);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO EMPLOYEE VALUES (0003, 'Ava', 'nashik','professor',75000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO EMPLOYEE VALUES (0004, 'Eva', 'pune','research mgr',45000);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO EMPLOYEE VALUES (0005, 'Avan', 'pune','research an',60000);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> INSERT INTO EMPLOYEE VALUES (0006, 'Evan', 'mumbai','professor',70000);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO EMPLOYEE VALUES (0007, 'Aiden', 'nashik','research worker',20000);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO EMPLOYEE VALUES (0008, 'P.Gupta','pune', 'professor',20000);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO EMPLOYEE VALUES (0009, 'Ethan','mumbai','Clerk   ',2500);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> INSERT INTO EMPLOYEE VALUES (0010, 'stefan', 'nashik','professor',20000);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO EMPLOYEE VALUES (0011, 'parth', 'pune','research mg',20000);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO EMPLOYEE VALUES (0012, 'Adhvik', 'pune','research an',20000);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO EMPLOYEE VALUES (0013, 'Omkar', 'mumbai','professor',20000);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO EMPLOYEE VALUES (0014, 'Ankur', 'nashik','research worker',40000);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO EMPLOYEE VALUES (0015, 'Swetha','pune', 'professor',20000);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO EMPLOYEE VALUES (0016, 'Shruti','mumbai','Clerk  ',2500);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO EMPLOYEE VALUES (0017, 'Raj', 'nashik','professor',20000);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO EMPLOYEE VALUES (0018, 'kshitij', 'pune','research mg',20000);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO EMPLOYEE VALUES (0019, 'HArry', 'pune','research an',20000);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO EMPLOYEE VALUES (0020, 'Krishna', 'mumbai','professor',20000);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO EMPLOYEE VALUES (0021, 'Elaine', 'nashik','research worker',20000);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> SELECT * FROM EMPLOYEE;
++--------+---------+--------+-----------------+-----------+
+| emp_id | ename   | addr   | job_stat        | basic_sal |
++--------+---------+--------+-----------------+-----------+
+|      1 | Clark   | pune   | professor       |     50000 |
+|      2 | Dave    | mumbai | Clerk           |      2500 |
+|      3 | Ava     | nashik | professor       |     75000 |
+|      4 | Eva     | pune   | research mgr    |     45000 |
+|      5 | Avan    | pune   | research an     |     60000 |
+|      6 | Evan    | mumbai | professor       |     70000 |
+|      7 | Aiden   | nashik | research worker |     20000 |
+|      8 | P.Gupta | pune   | professor       |     20000 |
+|      9 | Ethan   | mumbai | Clerk           |      2500 |
+|     10 | stefan  | nashik | professor       |     20000 |
+|     11 | parth   | pune   | research mg     |     20000 |
+|     12 | Adhvik  | pune   | research an     |     20000 |
+|     13 | Omkar   | mumbai | professor       |     20000 |
+|     14 | Ankur   | nashik | research worker |     40000 |
+|     15 | Swetha  | pune   | professor       |     20000 |
+|     16 | Shruti  | mumbai | Clerk           |      2500 |
+|     17 | Raj     | nashik | professor       |     20000 |
+|     18 | kshitij | pune   | research mg     |     20000 |
+|     19 | HArry   | pune   | research an     |     20000 |
+|     20 | Krishna | mumbai | professor       |     20000 |
+|     21 | Elaine  | nashik | research worker |     20000 |
++--------+---------+--------+-----------------+-----------+
+21 rows in set (0.00 sec)
+mysql> SELECT emp_id,basic_sal FROM EMPLOYEE WHERE basic_sal>4000;
++--------+-----------+
+| emp_id | basic_sal |
++--------+-----------+
+|      1 |     50000 |
+|      3 |     75000 |
+|      4 |     45000 |
+|      5 |     60000 |
+|      6 |     70000 |
+|      7 |     20000 |
+|      8 |     20000 |
+|     10 |     20000 |
+|     11 |     20000 |
+|     12 |     20000 |
+|     13 |     20000 |
+|     14 |     40000 |
+|     15 |     20000 |
+|     17 |     20000 |
+|     18 |     20000 |
+|     19 |     20000 |
+|     20 |     20000 |
+|     21 |     20000 |
++--------+-----------+
+18 rows in set (0.00 sec)
+
+mysql> SELECT basic_sal,job_stat FROM EMPLOYEE WHERE basic_sal>40000 AND job_stat='professor';
++-----------+-----------+
+| basic_sal | job_stat  |
++-----------+-----------+
+|     50000 | professor |
+|     75000 | professor |
+|     70000 | professor |
++-----------+-----------+
+3 rows in set (0.00 sec)
+mysql> SELECT emp_id, ename FROM EMPLOYEE ORDER BY emp_id desc;
++--------+---------+
+| emp_id | ename   |
++--------+---------+
+|     21 | Elaine  |
+|     20 | Krishna |
+|     19 | HArry   |
+|     18 | kshitij |
+|     17 | Raj     |
+|     16 | Shruti  |
+|     15 | Swetha  |
+|     14 | Ankur   |
+|     13 | Omkar   |
+|     12 | Adhvik  |
+|     11 | parth   |
+|     10 | stefan  |
+|      9 | Ethan   |
+|      8 | P.Gupta |
+|      7 | Aiden   |
+|      6 | Evan    |
+|      5 | Avan    |
+|      4 | Eva     |
+|      3 | Ava     |
+|      2 | Dave    |
+|      1 | Clark   |
++--------+---------+
+21 rows in set (0.00 sec)
+mysql> SELECT emp_id,ename FROM EMPLOYEE WHERE job_stat LIKE 'research%';
++--------+---------+
+| emp_id | ename   |
++--------+---------+
+|      4 | Eva     |
+|      5 | Avan    |
+|      7 | Aiden   |
+|     11 | parth   |
+|     12 | Adhvik  |
+|     14 | Ankur   |
+|     18 | kshitij |
+|     19 | HArry   |
+|     21 | Elaine  |
++--------+---------+
+9 rows in set (0.00 sec)
+mysql> SELECT emp_id,ename FROM EMPLOYEE WHERE MOD(emp_id,2)=1;
++--------+--------+
+| emp_id | ename  |
++--------+--------+
+|      1 | Clark  |
+|      3 | Ava    |
+|      5 | Avan   |
+|      7 | Aiden  |
+|      9 | Ethan  |
+|     11 | parth  |
+|     13 | Omkar  |
+|     15 | Swetha |
+|     17 | Raj    |
+|     19 | HArry  |
+|     21 | Elaine |
++--------+--------+
+11 rows in set (0.15 sec)
+
+mysql> SELECT SUM(basic_sal) FROM EMPLOYEE;
++----------------+
+| SUM(basic_sal) |
++----------------+
+|         587500 |
++----------------+
+1 row in set (0.10 sec)
+
+mysql> SELECT SUM(basic_sal) FROM EMPLOYEE WHERE job_stat='off_assi';
++----------------+
+| SUM(basic_sal) |
++----------------+
+|           NULL |
++----------------+
+1 row in set (0.00 sec)
+mysql> SELECT count(ename),job_stat FROM EMPLOYEE group BY job_stat;
++--------------+-----------------+
+| count(ename) | job_stat        |
++--------------+-----------------+
+|            9 | professor       |
+|            2 | Clerk           |
+|            1 | research mgr    |
+|            3 | research an     |
+|            3 | research worker |
+|            2 | research mg     |
+|            1 | Clerk           |
++--------------+-----------------+
+7 rows in set (0.21 sec)
+
+mysql> SELECT AVG(basic_sal),job_stat FROM EMPLOYEE WHERE job_stat='professor' AND job_stat LIKE 'research%';
++----------------+----------+
+| AVG(basic_sal) | job_stat |
++----------------+----------+
+|           NULL | NULL     |
++----------------+----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT AVG(basic_sal),job_stat FROM EMPLOYEE WHERE job_stat='professor';
++----------------+-----------+
+| AVG(basic_sal) | job_stat  |
++----------------+-----------+
+|     35000.0000 | professor |
++----------------+-----------+
+1 row in set (0.00 sec)
+mysql> SELECT AVG(basic_sal),job_stat FROM EMPLOYEE WHERE job_stat like 'research%';
++----------------+--------------+
+| AVG(basic_sal) | job_stat     |
++----------------+--------------+
+|     29444.4444 | research mgr |
++----------------+--------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT ename,job_stat FROM EMPLOYEE WHERE job_stat IN (SELECT job_stat FROM EMPLOYEE WHERE ename='P.Gupta');
++---------+-----------+
+| ename   | job_stat  |
++---------+-----------+
+| Clark   | professor |
+| Ava     | professor |
+| Evan    | professor |
+| P.Gupta | professor |
+| stefan  | professor |
+| Omkar   | professor |
+| Swetha  | professor |
+| Raj     | professor |
+| Krishna | professor |
++---------+-----------+
+9 rows in set (0.12 sec)
